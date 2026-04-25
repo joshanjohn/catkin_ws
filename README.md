@@ -24,6 +24,8 @@
 
 
 ### Create package 
+NOTE: Make sure all packages are inside `catkin_ws/src` folder. 
+
 command to make project_mapping package 
 ````
 catkin_create_pkg project_mapping rospy
