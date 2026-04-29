@@ -17,7 +17,8 @@
    
 4. Open github settings > <strong> SSH </strong> and  <strong> GPG Keys </strong>  and add public key and give a title. then try clone the repo. 
    
-<img width="641" height="786" alt="Screenshot 2026-04-15 at 19 34 11" src="https://github.com/user-attachments/assets/3f5027d5-df09-413b-9ca7-cd14e8875716" />
+<img width="688" height="797" alt="Screenshot 2026-04-29 at 18 39 42" src="https://github.com/user-attachments/assets/e89c9786-587a-4e1d-9e7e-52138500f09e" />
+
 
 
 <hr>
