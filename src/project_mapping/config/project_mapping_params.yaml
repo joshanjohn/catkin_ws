@@ -1,0 +1,6 @@
+# 5 Parameters for Section I Mapping
+maxUrange: 3.5            # LiDAR effective range for TurtleBot3
+map_update_interval: 5.0  # Time between map updates (seconds)
+linearUpdate: 0.1         # Process a scan each time the robot moves 0.1m
+angularUpdate: 0.2        # Process a scan each time the robot rotates 0.2 rad
+particles: 30             # Number of particles in the filter
