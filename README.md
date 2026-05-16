@@ -48,14 +48,12 @@ catkin_create_pkg project_planning rospy
 - publish the branch to remote and raise a PR. 
 - Add each other as reviewer.
 - (optional) use proper fix tage or issue number to automatically close the issues.
-- Terminal 1:
 
+Terminal 1:
 roslaunch realrobotlab main.launch
 Terminal 2:
-
 cd ~/catkin_ws
 source devel/setup.bash
 roslaunch project_planning project_planning_send_goal.launch
 Terminal 3:
-
 rviz
