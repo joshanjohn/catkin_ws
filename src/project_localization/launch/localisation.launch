@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- Load the map -->
+  <arg name="map_file" default="$(find project_mapping)/maps/project_mapping_map.yaml"/>
+  <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)"/>
+
+  <!-- AMCL Particle Filter Localization -->
+  <node pkg="amcl" type="amcl" name="amcl" output="screen">
+    <!-- Load parameters -->
+    <rosparam file="$(find project_localization)/config/amcl_params.yaml" command="load"/>
+    
+    <!-- Remap topics for TurtleBot3 -->
+    <remap from="scan" to="/scan"/>
+    
+    <!-- TF frames -->
+    <param name="odom_frame_id" value="odom"/>
+    <param name="base_frame_id" value="base_footprint"/>
+    <param name="global_frame_id" value="map"/>
+  </node>
+
+  <!-- Static transform between map and odom (AMCL will provide this) -->
+  <node pkg="tf2_ros" type="static_transform_publisher" name="map_to_odom_broadcaster" 
+        args="0 0 0 0 0 0 map odom" if="false"/>
+
+  <!-- Move base for navigation (optional, for testing) -->
+  <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+    <rosparam file="$(find project_localization)/config/move_base_params.yaml" command="load"/>
+  </node>
+
+  <!-- RViz for visualization -->
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find project_localization)/rviz/localization.rviz" 
+        required="true"/>
+</launch>
