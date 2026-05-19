@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- Load the map -->
+  <arg name="map_file" default="$(find project_mapping)/maps/project_mapping_map.yaml"/>
+  <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)"/>
+  <param name="/use_sim_time" value="true"/>
+
+  <!-- Robot state publisher (publishes /tf from joint_states) -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" output="screen">
+    <param name="robot_description" command="$(find xacro)/xacro '$(find turtlebot3_description)/urdf/turtlebot3_burger.urdf'"/>
+    <!-- Or wherever your URDF is -->
+  </node>
+
+  <!-- Joint state publisher (publishes /joint_states) -->
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+    <param name="use_gui" value="false"/>
+  </node>
+
+  <!-- AMCL Particle Filter Localization -->
+  <node pkg="amcl" type="amcl" name="amcl" output="screen">
+    <rosparam file="$(find project_localization)/config/amcl_params.yaml" command="load"/>
+    
+    <remap from="scan" to="/scan"/>
+    
+    <param name="odom_frame_id" value="odom"/>
+    <param name="base_frame_id" value="base_footprint"/>
+    <param name="global_frame_id" value="map"/>
+  </node>
+
+  <!-- Move base for navigation -->
+  <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+    <rosparam file="$(find project_localization)/config/move_base_params.yaml" command="load"/>
+  </node>
+
+  <!-- RViz -->
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find project_localization)/rviz/localization.rviz" 
+        required="true"/>
+</launch>

@@ -1,0 +1,58 @@
+# AMCL Particle Filter Parameters for TurtleBot3
+# Number of particles
+min_particles: 100
+max_particles: 5000
+kld_err: 0.01
+kld_z: 0.99
+
+# Initial pose
+# If you know starting position, set these
+initial_pose_x: 0.0
+initial_pose_y: 0.0
+initial_pose_a: 0.0
+initial_cov_xx: 0.25
+initial_cov_yy: 0.25
+initial_cov_aa: 0.0685
+set_initial_pose: true
+
+# Laser model parameters
+laser_min_range: 0.12
+laser_max_range: 3.5
+laser_max_beams: 30
+
+# Odometry model parameters
+odom_model_type: diff
+odom_alpha1: 0.2    # Rotation noise from rotation
+odom_alpha2: 0.2    # Rotation noise from translation  
+odom_alpha3: 0.2    # Translation noise from translation
+odom_alpha4: 0.2    # Translation noise from rotation
+odom_frame_id: odom 
+
+# Update thresholds
+update_min_d: 0.1   # Minimum translation before filter update
+update_min_a: 0.2   # Minimum rotation before filter update
+
+# Resampling
+resample_interval: 2
+transform_tolerance: 0.5
+recovery_alpha_slow: 0.001
+recovery_alpha_fast: 0.1
+
+# TF broadcast
+tf_broadcast: true
+
+# Laser likelihood model
+laser_model_type: likelihood_field
+laser_likelihood_max_dist: 2.0
+
+# Use map topic
+use_map_topic: true 
+
+use_sim_time: true 
+
+base_frame_id: base_footprint
+
+global_frame_id: map 
+
+name: amcl
+
