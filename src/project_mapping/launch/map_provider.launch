@@ -1,4 +1,19 @@
 <launch>
-    <arg name="map_file" default="$(find project_mapping)/maps/project_mapping_map.yaml"/>
-    <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" />
+
+    <arg name="map_file"
+         default="$(find project_mapping)/maps/project_mapping_map.yaml"/>
+
+    <!-- Load saved map -->
+    <node pkg="map_server"
+          type="map_server"
+          name="map_server"
+          args="$(arg map_file)"
+          output="screen"/>
+
+    <!-- Publish map frame -->
+    <node pkg="tf"
+          type="static_transform_publisher"
+          name="map_to_odom"
+          args="0 0 0 0 0 0 map odom 100"/>
+
 </launch>
