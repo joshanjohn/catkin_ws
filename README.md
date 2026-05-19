@@ -1,3 +1,10 @@
+
+## Command to open saved Rviz file 
+
+````
+rosrun rviz rviz -d /path/
+````
+
 ### Git Setup on Contruct 
 1. make sure you configure git on condtruct ros terminal using: 
    ```
@@ -41,6 +48,8 @@ command to make project_mapping package
 ````
 catkin_create_pkg project_planning rospy
 ````
+
+
 
 ### Simple Collaboration rules 
 - Always create a seperate branch your own localy
