@@ -1,0 +1,5 @@
+<launch>
+    <node pkg="project_mapping" type="simple_move.py" name="simple_move" output="screen">
+    </node>
+</launch>
+
