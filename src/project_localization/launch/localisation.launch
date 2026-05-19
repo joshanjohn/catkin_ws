@@ -5,30 +5,34 @@
   <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)"/>
   <param name="/use_sim_time" value="true"/>
 
+  <!-- Robot state publisher (publishes /tf from joint_states) -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" output="screen">
+    <param name="robot_description" command="$(find xacro)/xacro '$(find turtlebot3_description)/urdf/turtlebot3_burger.urdf'"/>
+    <!-- Or wherever your URDF is -->
+  </node>
+
+  <!-- Joint state publisher (publishes /joint_states) -->
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+    <param name="use_gui" value="false"/>
+  </node>
+
   <!-- AMCL Particle Filter Localization -->
   <node pkg="amcl" type="amcl" name="amcl" output="screen">
-    <!-- Load parameters -->
     <rosparam file="$(find project_localization)/config/amcl_params.yaml" command="load"/>
     
-    <!-- Remap topics for TurtleBot3 -->
     <remap from="scan" to="/scan"/>
     
-    <!-- TF frames -->
     <param name="odom_frame_id" value="odom"/>
     <param name="base_frame_id" value="base_footprint"/>
     <param name="global_frame_id" value="map"/>
   </node>
 
-  <!-- Static transform between map and odom (AMCL will provide this) -->
-  <node pkg="tf2_ros" type="static_transform_publisher" name="map_to_odom_broadcaster" 
-        args="0 0 0 0 0 0 map odom" if="false"/>
-
-  <!-- Move base for navigation (optional, for testing) -->
+  <!-- Move base for navigation -->
   <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
     <rosparam file="$(find project_localization)/config/move_base_params.yaml" command="load"/>
   </node>
 
-  <!-- RViz for visualization -->
+  <!-- RViz -->
   <node name="rviz" pkg="rviz" type="rviz" args="-d $(find project_localization)/rviz/localization.rviz" 
         required="true"/>
 </launch>
