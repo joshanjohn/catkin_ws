@@ -13,6 +13,7 @@ initial_pose_a: 0.0
 initial_cov_xx: 0.25
 initial_cov_yy: 0.25
 initial_cov_aa: 0.0685
+set_initial_pose: true
 
 # Laser model parameters
 laser_min_range: 0.12
@@ -25,6 +26,7 @@ odom_alpha1: 0.2    # Rotation noise from rotation
 odom_alpha2: 0.2    # Rotation noise from translation  
 odom_alpha3: 0.2    # Translation noise from translation
 odom_alpha4: 0.2    # Translation noise from rotation
+odom_frame_id: odom 
 
 # Update thresholds
 update_min_d: 0.1   # Minimum translation before filter update
@@ -44,4 +46,13 @@ laser_model_type: likelihood_field
 laser_likelihood_max_dist: 2.0
 
 # Use map topic
-use_map_topic: false
+use_map_topic: true 
+
+use_sim_time: true 
+
+base_frame_id: base_footprint
+
+global_frame_id: map 
+
+name: amcl
+

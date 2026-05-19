@@ -3,6 +3,7 @@
   <!-- Load the map -->
   <arg name="map_file" default="$(find project_mapping)/maps/project_mapping_map.yaml"/>
   <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)"/>
+  <param name="/use_sim_time" value="true"/>
 
   <!-- AMCL Particle Filter Localization -->
   <node pkg="amcl" type="amcl" name="amcl" output="screen">
