@@ -1,35 +1,5 @@
 <launch>
-  <node name="map_server" pkg="map_server" type="map_server"
-        args="$(find project_mapping)/maps/project_mapping_map.yaml" />
-        <node pkg="amcl" type="amcl" name="amcl" output="screen">
-    <param name="odom_frame_id" value="odom" />
-    <param name="base_frame_id" value="base_footprint" />
-    <param name="global_frame_id" value="map" />
-    <param name="use_map_topic" value="true" />
-
-    <param name="odom_model_type" value="diff" />
-    <param name="min_particles" value="500" />
-    <param name="max_particles" value="2000" />
-    <param name="update_min_d" value="0.2" />
-    <param name="update_min_a" value="0.2" />
-    <param name="resample_interval" value="1" />
-    <param name="transform_tolerance" value="0.5" />
-
-    <remap from="scan" to="/scan" />
-  </node>
-
-  <node pkg="move_base" type="move_base" name="move_base" output="screen">
-    <rosparam file="$(find project_planning)/config/move_base_params.yaml" command="load" />
-    <rosparam file="$(find project_planning)/config/costmap_common.yaml" command="load" ns="global_costmap" />
-    <rosparam file="$(find project_planning)/config/costmap_common.yaml" command="load" ns="local_costmap" />
-    <rosparam file="$(find project_planning)/config/costmap_global.yaml" command="load" />
-    <rosparam file="$(find project_planning)/config/costmap_local.yaml" command="load" />
-    <rosparam file="$(find project_planning)/config/global_planner.yaml" command="load" />
-    <rosparam file="$(find project_planning)/config/local_planner.yaml" command="load" />
-
-    <param name="base_global_planner" value="navfn/NavfnROS" />
-    <param name="base_local_planner" value="dwa_local_planner/DWAPlannerROS" />
-  </node>
+  <include file="$(find project_planning)/launch/project_move_base.launch" />
 
   <node name="project_planning_send_goal"
         pkg="project_planning"
